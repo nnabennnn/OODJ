@@ -15,7 +15,7 @@ public class OODJ {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("Testing Testng Tom and Ben <3");
+        System.out.println("");
     }
     
 }
