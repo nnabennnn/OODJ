@@ -4,6 +4,12 @@
  */
 package oodj;
 
+import java.util.Scanner;
+
+
+
+
+
 /**
  *
  * @author ben
@@ -14,8 +20,11 @@ public class OODJ {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println(" Bash test i here ");
+        Admin admin = new Admin();
+        
+        
+        
+                
     }
     
 }
