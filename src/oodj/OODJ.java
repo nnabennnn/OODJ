@@ -20,8 +20,8 @@ public class OODJ {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Admin admin = new Admin();
-        
+        //Admin admin = new Admin();
+        Login login = new Login();
         
         
                 

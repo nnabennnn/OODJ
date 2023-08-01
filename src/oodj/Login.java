@@ -4,46 +4,66 @@
  */
 package oodj;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
+
 /**
  * @author BEN
  */
 
-import java.util.Scanner;
+
 
 public class Login {
-    Scanner sc;
-    String username;
-    String pass;
     
+    Scanner s = new Scanner(System.in);
+    String filename = "/Users/ben/Documents/OOPJAVA/OODJ/username.txt";
     
-    public Login(Scanner sc){
-        this.sc=sc;
+    public Login(){
+        LoginProcess();
     }
     
-    public void insertData(){
-        System.out.print("Username : ");
-        username = sc.nextLine();
+    public void LoginProcess() {
         
-        System.out.print("Password :  ");
-        pass = sc.nextLine();
-        checking();   
-    }
-    
-    public void checking(){
-        if(username.equals("admin")){
-            if(pass.equals("admin")){
-                System.out.println("Successfully!");
-                System.out.println("Welcome Back Admin");
-            
-            }else{
-                System.out.println("Wrong password, Please try again.");
+        try{
+            Path path = Paths.get(filename.toString());
+            InputStream input = Files.newInputStream(path);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+            System.out.println("Login page");
+            System.out.print("Username : ");
+            String username = s.nextLine();
+            System.out.print("Password : ");
+            String password = s.nextLine();
+            String _temp = null;
+            String _user;
+            String _pass;
+            boolean found = false;
+            while((_temp=reader.readLine()) != null){
+                String[] account = _temp.split(",");
+                _user = account[0];
+                _pass = account[1];
+                if(_user.equals(username)&&_pass.equals(password)){
+                    found = true;
+                }
             }
-        }else{
-            System.out.println("Wrong Username, Please try again.");
+            
+            if(found==true){
+                System.out.println("Login Successfully");
+            }else{
+                System.out.println("Invalid username or password or both");
+                reader.close();
+                
+            }
+             
+        }catch(Exception ex){
+            System.out.print(ex.getMessage());
         }
-    
     }
-   
-    
+
     
 }
