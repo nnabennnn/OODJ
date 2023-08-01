@@ -9,7 +9,8 @@ package oodj;
  *
  * @author htank
  */
+
+
 public class Sales {
-    
     
 }
