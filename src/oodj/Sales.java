@@ -11,4 +11,5 @@ package oodj;
  */
 public class Sales {
     
+    
 }
