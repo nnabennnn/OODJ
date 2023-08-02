@@ -20,7 +20,7 @@ import java.util.Scanner;
 public class Login {
     
     Scanner s = new Scanner(System.in);
-    String filename = "/Users/ben/Documents/OOPJAVA/OODJ/username.txt";
+    String filename = "/Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/username.txt";
     
     public Login(){
         LoginProcess();
