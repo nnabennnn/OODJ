@@ -17,8 +17,6 @@ import java.util.Scanner;
  * @author BEN
  */
 
-
-
 public class Login {
     
     Scanner s = new Scanner(System.in);
@@ -53,7 +51,7 @@ public class Login {
             }
             
             if(found==true){
-                System.out.println("Login Successfully");
+                System.out.println("Login Successfully!");
             }else{
                 System.out.println("Invalid username or password or both");
                 reader.close();
