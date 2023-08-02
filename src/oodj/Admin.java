@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class Admin {
     
     Scanner s = new Scanner(System.in);
-    String filename = "/Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/username.txt";
+    String filename = "/Users/ben/Documents/OOPJAVA/OODJ/username.txt";
     
     public Admin(){
         
