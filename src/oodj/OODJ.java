@@ -7,9 +7,6 @@ package oodj;
 import java.util.Scanner;
 
 
-
-
-
 /**
  *
  * @author ben
@@ -20,10 +17,11 @@ public class OODJ {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Admin admin = new Admin();
-        //Login login = new Login();
-        
-        
+
+        //Admin admin = new Admin();
+        Login login = new Login();
+        //Sales sales = new Sales();
+
                 
     }
     
