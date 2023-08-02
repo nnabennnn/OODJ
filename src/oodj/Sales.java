@@ -11,4 +11,9 @@ package oodj;
  */
 public class Sales {
     
+    public Sales(){
+        System.out.println("Sales Manager Panel");
+        System.out.println("Menu Testing:");
+    }
+    
 }

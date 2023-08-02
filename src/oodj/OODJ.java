@@ -7,9 +7,6 @@ package oodj;
 import java.util.Scanner;
 
 
-
-
-
 /**
  *
  * @author ben
@@ -21,9 +18,8 @@ public class OODJ {
      */
     public static void main(String[] args) {
         //Admin admin = new Admin();
-        Login login = new Login();
-        
-        
+        //Login login = new Login();
+        Sales sales = new Sales();
                 
     }
     
