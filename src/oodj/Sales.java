@@ -27,13 +27,7 @@ public final class Sales {
     }
 
     private void displayMenu() {
-        System.out.println("Welcome, Sale Manager!");
-        System.out.println("1. Item Entry Manage.");
-        System.out.println("2. Supplier Entry Manage.");
-        System.out.println("3. Daily Item-Wise Sales Entry.");
-        System.out.println("4. Create Requisition.");
-        System.out.println("5. List of Purchase Orders.");
-        System.out.println("0. Logout");
+        System.out.println("Welcome, Sale Manager!\n1. Item Entry Manage.\n2. Supplier Entry Manage.\n3. Daily Item-Wise Sales Entry.\n4. Create Requisition./n5. List of Purchase Orders.");
         System.out.print("Enter your choice: ");
     }
 
@@ -73,13 +67,7 @@ public final class Sales {
     // Implement submenus for each menu option here...
 
     private void itemEntry() {
-        System.out.println("Item Entry Submenu...");
-        // Add submenu options and logic here
-        System.out.println("1. Add");
-        System.out.println("2. Save");
-        System.out.println("3. Delete");
-        System.out.println("4. Edit");
-        System.out.println("0. Go back to Main Menu");
+        System.out.println("Item Entry Submenu...\n1. Add\n2. Save\n3. Delete\n4. Edit\n0. Go back to Main Menu\n");
         System.out.print("Enter your choice: ");
         int submenuChoice = Integer.parseInt(scanner.nextLine());
         switch (submenuChoice) {
@@ -93,13 +81,7 @@ public final class Sales {
     }
 
     private void supplierEntry() {
-        System.out.println("Supplier Entry Submenu...");
-        // Add submenu options and logic here
-        System.out.println("1. Add");
-        System.out.println("2. Save");
-        System.out.println("3. Delete");
-        System.out.println("4. Edit");
-        System.out.println("0. Go back to Main Menu");
+        System.out.println("Supplier Entry Submenu...\n1. Add\n2. Save\n3. Delete\n4. Edit\n0. Go back to Main Menu\n");
         System.out.print("Enter your choice: ");
         int submenuChoice = Integer.parseInt(scanner.nextLine());
         switch (submenuChoice) {
@@ -113,13 +95,7 @@ public final class Sales {
     }
 
     private void dailyItemWiseSales() {
-        System.out.println("Daily Item-Wise Sales Submenu...");
-        // Add submenu options and logic here
-        System.out.println("1. Add");
-        System.out.println("2. Save");
-        System.out.println("3. Delete");
-        System.out.println("4. Edit");
-        System.out.println("0. Go back to Main Menu");
+        System.out.println("Daily Item-Wise Sales Submenu...\n1. Add\n2. Save\n3. Delete\n4. Edit\n0. Go back to Main Menu\n");
         System.out.print("Enter your choice: ");
         int submenuChoice = Integer.parseInt(scanner.nextLine());
         switch (submenuChoice) {
