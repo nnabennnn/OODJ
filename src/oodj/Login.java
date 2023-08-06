@@ -62,13 +62,13 @@ public class Login {
             
 
             if(found){
-                System.out.println("Login Successfully!");
+                System.out.println("Login Successfully!\n");
                 this.user = username;
                 
                 
                 
             } else {
-                System.out.println("Invalid username or password or both");           
+                System.out.println("Invalid username or password or both\n");           
                 
             }
             reader.close();
