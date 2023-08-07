@@ -40,18 +40,12 @@ public class Items {
     
     public void saveItemToFile(String name, String category, String price, String availability, String code, String descriptions) throws IOException {
         try (FileWriter writer = new FileWriter(FILENAME, true);
-             BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
-            // Check if the file is empty before writing the new item data
-            /**
-            if (file.length() != 0) {
-                bufferedWriter.newLine(); // Add a newline if the file is not empty
-            }
-            **/
+            BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
             String itemData = name + "," + category + "," + price + "," + availability + "," + code + "," + descriptions + "\n";
             bufferedWriter.write(itemData);
-            System.out.println("Item information saved Successfully.");
+            System.out.println("\nItem information saved Successfully.\n");
         } catch (IOException e) {
-            System.out.println("An error occurred while saving the item information.");
+            System.out.println("\nAn error occurred while saving the item information.\n");
         }
     }
     
@@ -76,20 +70,20 @@ public class Items {
             }
         }
     } catch (IOException e) {
-        System.out.println("An error occurred while deleting the item from the file.");
+        System.out.println("\nAn error occurred while deleting the item from the file.\n");
         return;
     }
 
     if (!itemFound) {
-        System.out.println("There's no such item in stock.");
+        System.out.println("\nThere's no such item in stock.\n");
         return;
     }
 
     // Delete the original file and rename the temporary file to the original file name
     if (!inputFile.delete() || !tempFile.renameTo(inputFile)) {
-        System.out.println("Failed to update the item file after deletion.");
+        System.out.println("\nFailed to update the item file after deletion.\n");
     } else {
-        System.out.println("Item deleted from file successfully.");
+        System.out.println("\nItem deleted from file successfully.\n");
     }
     }
 
@@ -117,20 +111,20 @@ public class Items {
             }
         }
     } catch (IOException e) {
-        System.out.println("An error occurred while editing the item information.");
+        System.out.println("\nAn error occurred while editing the item information.\n");
         return;
     }
 
     if (!itemFound) {
-        System.out.println("There's no such item in stock to edit.");
+        System.out.println("\nThere's no such item in stock to edit.\n");
         return;
     }
 
     // Rename the temporary file to the original file name
     if (!tempFile.renameTo(new File(FILENAME))) {
-        System.out.println("Failed to update the item file after editing.");
+        System.out.println("\nFailed to update the item file after editing.\n");
     } else {
-        System.out.println("Item information edited Successfully.");
+        System.out.println("\nItem information edited Successfully.\n");
     }
     }
 
