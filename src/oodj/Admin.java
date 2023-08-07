@@ -8,6 +8,10 @@ package oodj;
  * @author BEN
  */
 
+//filepath
+// "/Users/ben/Documents/OOPJAVA/OODJ/username.txt"
+//"/Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/username.txt"
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;

@@ -26,12 +26,20 @@ public class OODJ {
            Admin admin = new Admin();
        }
        
-       if ("sales".equals(username)){
+       else if ("sales".equals(username)){
            System.out.println("Welcome!");
            Sales sales = new Sales(); 
            
+       }
+           
+       else if("pm".equals((username))){
+           System.out.println("Welcome!");
+           PM pm = new PM(); 
+       
+           
        }else{
            System.out.println("bye");
+           new Login();
        }
              
        

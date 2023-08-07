@@ -3,10 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package oodj;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -14,11 +18,14 @@ import java.util.Scanner;
  * @author htankhaishan
  */
 
+//filepath
+// "/Users/ben/Documents/OOPJAVA/OODJ/items.txt"
+//"/Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/items.txt"
 
 public class Items {
     private String name, category, price, availability, code, descriptions;
     // Declare file name only once. Change this according to local file location.
-    private static final String FILENAME = "/Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/items.txt";
+    private static final String FILENAME = "/Users/ben/Documents/OOPJAVA/OODJ/items.txt";
 
     
     public Items(String name, String category, String price, String availability, String code, String descriptions){
@@ -175,6 +182,66 @@ public class Items {
     public void setDescriptions(String descriptions) {
         this.descriptions = descriptions;
     }
+    
+    
+    public void ViewItem(){
+        List<String> itemList = ReadItemListFromFile(FILENAME);
+        
+        int numColumns = 6;
+        int[] maxColumnWidths = new int[numColumns];
+        List<String[]> formattedItemList = new ArrayList<>();
+
+        for (String item : itemList) {
+        String[] itemInfo = item.split(",");
+        formattedItemList.add(itemInfo);
+
+            for (int i = 0; i < numColumns; i++) {
+                maxColumnWidths[i] = Math.max(maxColumnWidths[i], itemInfo[i].length());
+            }
+        }
+
+        String separator = "+-----------------+---------+----------+---------------+--------+-------------------+";
+        String format = "| %-"+(maxColumnWidths[0]+2)+"s | %-"+(maxColumnWidths[1]+2)+"s | %-"+(maxColumnWidths[2]+2)+"s | %-"+(maxColumnWidths[3]+2)+"s | %-"+(maxColumnWidths[4]+2)+"s | %-"+(maxColumnWidths[5]+2)+"s |";
+
+        System.out.println("Item List:");
+        System.out.println(separator);
+        System.out.printf(format, "Name", "Type", "Price", "Status", "Code", "Description");
+        System.out.println();
+        System.out.println(separator);
+
+        for (String[] itemInfo : formattedItemList) {
+            System.out.printf(format, itemInfo[0], itemInfo[1], itemInfo[2], itemInfo[3], itemInfo[4], itemInfo[5]);
+            System.out.println();
+        }
+
+        System.out.println(separator);
+    
+    }
+    
+    public static List<String> ReadItemListFromFile(String FILENAME){
+        List<String> itemList = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILENAME))){
+            String line;
+            while ((line = reader.readLine()) != null) {
+                itemList.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return itemList;
+    }
+    
+    public static String formatTableCell(String cellContent){
+       int cellWidth = 15;
+        if (cellContent.length() <= cellWidth) {
+            return cellContent;
+        } else {
+            return cellContent.substring(0, cellWidth - 3) + "...";
+        } 
+    
+}
+    
+         
     
     
 }
