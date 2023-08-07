@@ -16,12 +16,14 @@ import java.util.Scanner;
 
 /**
  * @author BEN
+ * /Users/ben/Documents/OOPJAVA/OODJ/username.txt
+ * /Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/username.txt
  */
 
 public class Login {
     
     Scanner s = new Scanner(System.in);
-    String filename = "/Users/ben/Documents/OOPJAVA/OODJ/username.txt";
+    String filename = "/Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/username.txt";
     String user;
     
     
@@ -60,13 +62,13 @@ public class Login {
             
 
             if(found){
-                System.out.println("Login Successfully!");
+                System.out.println("Login Successfully!\n");
                 this.user = username;
                 
                 
                 
             } else {
-                System.out.println("Invalid username or password or both");           
+                System.out.println("Invalid username or password or both\n");           
                 
             }
             reader.close();
