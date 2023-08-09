@@ -16,7 +16,7 @@ public class OODJ {
      * @param args the command line arguments
      * @throws java.io.IOException
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException  {
 
        Login login = new Login();
        String username = login.user;
@@ -39,7 +39,7 @@ public class OODJ {
            
        }else{
            System.out.println("bye");
-           new Login();
+           
        }
              
        

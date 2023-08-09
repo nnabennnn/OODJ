@@ -48,7 +48,7 @@ public class Login {
             String _temp;
             String _user;
             String _pass;
-            String _role;
+            String _role = "";
 
             boolean found = false;
             while((_temp=reader.readLine()) != null){
@@ -58,28 +58,27 @@ public class Login {
                 _role = account[2];
                 if(_user.equals(username) && _pass.equals(password)){
                     found = true;
-                    String role = _role;
-                    this.user = role;
+                    
                     break;
                 }
             }
             
 
             if(found){
-                System.out.println("Login Successfully!\n ");
-                
+                System.out.println("Login Successfully!\n ");           
+                this.user = _role;
                 
                 
                 
             } else {
                 System.out.println("Invalid username or password or both\n");
-                
+                LoginProcess();
                 
             }
             reader.close();
             
         } catch(Exception ex){
-            System.out.print(ex.getMessage());
+            System.out.print("Invalid username or password or both2\n");
             new Login();
         }
     

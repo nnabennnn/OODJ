@@ -200,7 +200,7 @@ public class Items {
             }
         }
 
-        String separator = "+-----------------+---------+----------+---------------+--------+-------------------+";
+        String separator = "----------------------------------------------------------------------------------------";
         String format = "| %-"+(maxColumnWidths[0]+2)+"s | %-"+(maxColumnWidths[1]+2)+"s | %-"+(maxColumnWidths[2]+2)+"s | %-"+(maxColumnWidths[3]+2)+"s | %-"+(maxColumnWidths[4]+2)+"s | %-"+(maxColumnWidths[5]+2)+"s |";
 
         System.out.println("Item List:");
@@ -239,7 +239,7 @@ public class Items {
             return cellContent.substring(0, cellWidth - 3) + "...";
         } 
     
-}
+    }
     
          
     

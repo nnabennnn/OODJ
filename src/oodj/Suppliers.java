@@ -1,10 +1,15 @@
 package oodj;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import static oodj.Items.ReadItemListFromFile;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -15,9 +20,14 @@ import java.util.Scanner;
  *
  * @author htankhaishan
  */
+
+//filepath
+// "/Users/ben/Documents/OOPJAVA/OODJ/suppliers.txt"
+//"/Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/suppliers.txt"
+
 public class Suppliers {
     private String supname, conname, supemail, supphone, supaddr, supweb;
-    private static final String FILENAME = "/Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/suppliers.txt";
+    private static final String FILENAME = "/Users/ben/Documents/OOPJAVA/OODJ/suppliers.txt";
 
     public Suppliers(String supname, String conname, String supemail, String supphone, String supaddr, String supweb){
         this.supname = supname;
@@ -183,5 +193,66 @@ public class Suppliers {
     public String getSupweb() {
         return supweb;
     }
+    
+    
+    public void ViewSuppliers(){
+        List<String> SuppliersList = ReadItemListFromFile(FILENAME);
+        
+        int numColumns = 6;
+        int[] maxColumnWidths = new int[numColumns];
+        List<String[]> formattedSuppliersList = new ArrayList<>();
+
+        for (String Suppliers : SuppliersList) {
+        String[] SuppliersInfo = Suppliers.split(",");
+        formattedSuppliersList.add(SuppliersInfo);
+
+            for (int i = 0; i < numColumns; i++) {
+                maxColumnWidths[i] = Math.max(maxColumnWidths[i], SuppliersInfo[i].length());
+            }
+        }
+
+        String separator = "-------------------------------------------------------------------------------------------------------";
+        String format = "| %-"+(maxColumnWidths[0]+2)+"s | %-"+(maxColumnWidths[1]+2)+"s | %-"+(maxColumnWidths[2]+2)+"s | %-"+(maxColumnWidths[3]+2)+"s | %-"+(maxColumnWidths[4]+2)+"s | %-"+(maxColumnWidths[5]+2)+"s |";
+
+        System.out.println("Suppliers List:");
+        System.out.println(separator);
+        System.out.printf(format, "Supplier", "Contact", "Email", "Phone Number", "Address", "Website");
+        System.out.println();
+        System.out.println(separator);
+        
+
+        for (String[] SuppliersInfo : formattedSuppliersList) {
+            System.out.printf(format, SuppliersInfo[0], SuppliersInfo[1], SuppliersInfo[2], SuppliersInfo[3], SuppliersInfo[4], SuppliersInfo[5]);
+            System.out.println();
+        }
+
+        System.out.println(separator);
+    
+    }
+    
+    public static List<String> ReadSuppliersListFromFile(String FILENAME){
+        List<String> SuppliersList = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILENAME))){
+            String line;
+            while ((line = reader.readLine()) != null) {
+                SuppliersList.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return SuppliersList;
+    }
+    
+    public static String formatTableCell(String cellContent){
+       int cellWidth = 15;
+        if (cellContent.length() <= cellWidth) {
+            return cellContent;
+        } else {
+            return cellContent.substring(0, cellWidth - 3) + "...";
+        } 
+    
+}
+    
+    
 
 }
