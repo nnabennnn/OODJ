@@ -184,9 +184,4 @@ public class Suppliers {
         return supweb;
     }
 
-    public void setSupweb(String supweb) {
-        this.supweb = supweb;
-    }
-    
-    
 }

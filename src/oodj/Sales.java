@@ -50,8 +50,8 @@ public final class Sales {
                 switch (choice) {
                     case 1 -> itemEntry();
                     case 2 -> supplierEntry();
-                    case 3 -> dailyItemWiseSales();
-                    case 4 -> displayRequisition();
+                    case 3 -> dailyItemsWiseSales();
+                    case 4 -> purchaseRequisition();
                     case 5 -> listOfPurchaseOrders();
                     case 0 -> logout();
                     default -> {
@@ -237,21 +237,81 @@ public final class Sales {
         }
     }
 
-    private void dailyItemWiseSales() {
-        System.out.println("Daily Item-Wise Sales Submenu...\n1. Add\n2. Save\n3. Delete\n4. Edit\n0. Go back to Main Menu\n");
+    private void dailyItemsWiseSales() throws IOException {
+        boolean dailyItemsDisplayMenu = true;
+        while (dailyItemsDisplayMenu) {
+        System.out.println("Daily Item-Wise Sales Submenu...\n1. Add\n2. Delete\n3. Edit\n0. Go back to Main Menu\n");
         System.out.print("Enter your choice: ");
         int submenuChoice = Integer.parseInt(scanner.nextLine());
         switch (submenuChoice) {
-            case 1 -> System.out.println("Add daily sales logic...");
-            case 2 -> System.out.println("Save daily sales logic...");
-            case 3 -> System.out.println("Delete daily sales logic...");
-            case 4 -> System.out.println("Edit daily sales logic...");
+            case 1 -> {
+                System.out.println("Add Daily Items-wise Sales.");
+                System.out.print("Enter Order ID: ");
+                String orderID = scanner.nextLine();
+                System.out.print("Enter Product Name: ");
+                String productName = scanner.nextLine();
+                System.out.print("Enter Quantity Sold: ");
+                String quantitySold = scanner.nextLine();
+                System.out.print("Enter Revenue in RM: ");
+                String revenue = scanner.nextLine();
+                System.out.print("\nDo you want to save this Supplier Information? Please checks before you proceed. (Y/N): ");
+                String confirm = scanner.nextLine();
+                if (confirm.equalsIgnoreCase("Y")) {
+                    DailyItemsSale dailySales = new DailyItemsSale(orderID, productName, quantitySold, revenue);
+                    dailySales.saveDailyToFile(orderID, productName, quantitySold, revenue);
+                } else {
+                    System.out.println("Item not saved.");
+                    }
+                break;
+            }
+            case 2 -> {
+                System.out.println("Delete Daily Items-wise Sales ...");
+                System.out.print("Enter the name of the Supplier to delete: ");
+                String dailyItemToDelete = scanner.nextLine();
+                DailyItemsSale dailySales = new DailyItemsSale();
+                dailySales.deleteDailyFromFile(dailyItemToDelete);
+                break;
+                }
+            
+            case 3 -> {
+                System.out.println("Edit Daily Items-wise Information...");
+                System.out.print("Enter the name of the Item to edit: ");
+                String dailyNameToEdit = scanner.nextLine();
+
+                // Check if the supplier exists before proceeding
+                DailyItemsSale dailyItem = new DailyItemsSale(); // Create an instance of Suppliers
+                boolean itemExists = dailyItem.checkDailyExists(dailyNameToEdit);
+
+                if (itemExists) {
+                    System.out.print("Enter new Order ID: ");
+                    String orderID = scanner.nextLine();
+                    System.out.print("Enter new Product Name: ");
+                    String productName = scanner.nextLine();
+                    System.out.print("Enter new Quanitity Sold: ");
+                    String quantitySold = scanner.nextLine();
+                    System.out.print("Enter new Revenue: ");
+                    String revenue = scanner.nextLine();
+                    System.out.print("\nDo you want to save the changes? Please check before you proceed. (Y/N): ");
+                    String confirm = scanner.nextLine();
+
+                    if (confirm.equalsIgnoreCase("Y")) {
+                    dailyItem.editDailyFromFile(dailyNameToEdit, orderID, productName, quantitySold, revenue);
+                } else {
+                    System.out.println("\nChanges not saved.\n");
+                }
+            } else {
+                System.out.println("\nItem not found. Please enter a valid Daily Items Sale name.\n");
+            }
+            break;
+            }
+            
             case 0 -> displayMenu = true; // Go back to the main menu
             default -> System.out.println("\nInvalid number. Please enter a valid option.\n");
         }
     }
-
-    private void displayRequisition() {
+    }
+        
+    private void purchaseRequisition() {
         System.out.println("List of Purchase Orders Submenu...");
         // Add submenu options and logic here
         System.out.println("Click Enter to Go Back Main Menu.");
