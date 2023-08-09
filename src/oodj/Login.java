@@ -23,7 +23,7 @@ import java.util.Scanner;
 public class Login {
     
     Scanner s = new Scanner(System.in);
-    String filename = "/Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/username.txt";
+    String filename = "/Users/ben/Documents/OOPJAVA/OODJ/username.txt";
     String user;
     
     
@@ -48,22 +48,26 @@ public class Login {
             String _temp;
             String _user;
             String _pass;
+            String _role;
 
             boolean found = false;
             while((_temp=reader.readLine()) != null){
                 String[] account = _temp.split(",");
                 _user = account[0];
                 _pass = account[1];
+                _role = account[2];
                 if(_user.equals(username) && _pass.equals(password)){
                     found = true;
+                    String role = _role;
+                    this.user = role;
                     break;
                 }
             }
             
 
             if(found){
-                System.out.println("Login Successfully!\n");
-                this.user = username;
+                System.out.println("Login Successfully!\n ");
+                
                 
                 
                 

@@ -50,8 +50,10 @@ public class Admin {
             String username = s.nextLine();
             System.out.print("What is a password : ");
             String password = s.nextLine();
+            System.out.print("What is the role : ");
+            String role = s.nextLine();
             
-            writer.write(username + "," + password);
+            writer.write(username + "," + password + "," + role);
             writer.newLine();
             System.out.println("Account has been saved successfully");
             
