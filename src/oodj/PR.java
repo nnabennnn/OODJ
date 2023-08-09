@@ -13,6 +13,7 @@ public class PR {
     private static final String FILENAME = "/Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/pr.txt";
 
     public PR(String itemCode, String itemDescription, String quantity) {
+        
         this.itemCode = itemCode;
         this.itemDescription = itemDescription;
         this.quantity = quantity;
