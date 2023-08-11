@@ -7,7 +7,12 @@ package oodj;
 /**
  *
  * @author htankhaishan
- */
+ //filepath
+// "/Users/ben/Documents/OOPJAVA/OODJ/username.txt"
+//"/Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/username.txt"
+*/
+
+
 public class PR {
     private String itemCode, itemDescription, quantity;
     private static final String FILENAME = "/Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/pr.txt";

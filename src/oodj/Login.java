@@ -16,9 +16,10 @@ import java.util.Scanner;
 
 /**
  * @author BEN
- * /Users/ben/Documents/OOPJAVA/OODJ/username.txt
- * /Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/username.txt
- */
+//filepath
+// "/Users/ben/Documents/OOPJAVA/OODJ/username.txt"
+//"/Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/username.txt"
+*/
 
 public class Login {
     
