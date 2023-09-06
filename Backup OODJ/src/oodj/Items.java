@@ -3,15 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package oodj;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 /**
  *
@@ -23,68 +16,94 @@ import java.util.Scanner;
 //"/Users/htankhaishan/Documents/2nd Year 1st Sem/Java/OODJ/items.txt"
 
 public class Items extends manage {
-    private String name, category, price, availability, code, descriptions;
     // Declare file name only once. Change this according to local file location.
-    private static final String FILENAME = "/Users/htankhaishan/Desktop/Backup/src/oodj/items.txt";
+    private static final String FILENAME = "/Users/htankhaishan/Desktop/Backup OODJ/items.txt";
     
-    public Items(String name, String category, String price, String availability, String code, String descriptions){
-        this.name = name;
-        this.category = category;
-        this.price = price;
-        this.availability = availability;
-        this.code = code;
-        this.descriptions = descriptions;
+    private String Iname;
+    private String Icate;
+    private String Iprice;
+    private String Iavi;
+    private String Idec;
+    private String Icode;
+
+    // Define setter methods for each field
+    public void setIname(String Iname) {
+        this.Iname = Iname;
+    }
+
+    public void setIcate(String Icate) {
+        this.Icate = Icate;
     }
     
-    public Items(){
+    public void setIprice(String Iprice) {
+        this.Iprice = Iprice;
+    }
+
+    public void setIavi(String Iavi) {
+        this.Iavi = Iavi;
+    }
+
+    public void setIdec(String Idec) {
+        this.Idec = Idec;
+    }
+
+    public void setIcode(String Icode) {
+        this.Icode = Icode;
     }
     
     @Override
-    public void add() {
-        try (FileWriter writer = new FileWriter(FILENAME, true);
-           BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
-           // Prompt the user for item information
-           Scanner scanner = new Scanner(System.in);
-           System.out.print("Enter item name: ");
-           String Iname = scanner.nextLine();
-           System.out.print("Enter item category: ");
-           String Icate = scanner.nextLine();
-           System.out.print("Enter item price in RM: ");
-           String Iprice = scanner.nextLine();
-           System.out.print("Enter item Availability (Available or NoStock): ");
-           String Iavi = scanner.nextLine();
-           System.out.print("Enter item Description: ");
-           String Idec = scanner.nextLine();
-           System.out.print("Enter Product Code: ");
-           String Icode = scanner.nextLine();
-           
-           // Display the entered data for confirmation
-           System.out.println("\nPlease review the entered data:");
-           System.out.println("Name: " + Iname);
-           System.out.println("Category: " + Icate);
-           System.out.println("Price: " + Iprice);
-           System.out.println("Availability: " + Iavi);
-           System.out.println("Description: " + Idec);
-           System.out.println("Product Code: " + Icode);
-
-           System.out.print("Do you want to save this item? (yes/no): ");
-           String confirm = scanner.nextLine();
-
-           if (confirm.equals("yes") || confirm.equals("y")) {
-               // Create a comma-separated string with the item data
-               String itemData = Iname + "," + Icate + "," + Iprice + "," + Iavi + "," + Icode + "," + Idec;
-               // Write the item data to the file
-               bufferedWriter.write(itemData);
-               bufferedWriter.newLine();
-               System.out.println("\nItem information saved successfully.\n");
-           } else {
-               System.out.println("\nItem not saved.\n");
-           }
-       } catch (IOException e) {
-           System.out.println("\nAn error occurred while saving the item information.\n");
-       }
-    }
+        public String toString() {
+            return Iname + Icate + Iprice + Iavi + Idec + Icode;
+        }
     
+    @Override
+    public void add() {
+    try (FileWriter writer = new FileWriter(FILENAME, true);
+        BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
+        // Prompt the user for item information
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter item name: ");
+        String Iname = scanner.nextLine();
+        System.out.print("Enter item category: ");
+        String Icate = scanner.nextLine();
+        System.out.print("Enter item price in RM: ");
+        String Iprice = scanner.nextLine();
+        System.out.print("Enter item Availability (Available or NoStock): ");
+        String Iavi = scanner.nextLine();
+        System.out.print("Enter item Description: ");
+        String Idec = scanner.nextLine();
+        System.out.print("Enter Product Code: ");
+        String Icode = scanner.nextLine();
+
+        // Display the entered data for confirmation
+        System.out.println("\nPlease review the entered data:");
+        System.out.println("Item Information:");
+        System.out.println("Name: " + Iname);
+        System.out.println("Category: " + Icate);
+        System.out.println("Price: " + Iprice + " RM");
+        System.out.println("Availability: " + Iavi);
+        System.out.println("Description: " + Idec);
+        System.out.println("Product Code: " + Icode);
+
+        System.out.print("Do you want to save this item? (yes/no): ");
+        String confirm = scanner.nextLine();
+
+        if (confirm.equals("yes") || confirm.equals("y")) {
+            // Create a comma-separated string with the item data
+            String itemData = Iname + "," + Icate + "," + Iprice + "," + Iavi + "," + Idec + "," + Icode;
+            // Write the item data to the file
+            bufferedWriter.write(itemData);
+            bufferedWriter.newLine();
+            System.out.println("\nItem information saved successfully.\n");
+        } else {
+            System.out.println("\nItem not saved.\n");
+        }
+   } catch (IOException e) {
+       System.out.println("\nAn error occurred while saving the item information.\n");
+   }
+}
+
+
     @Override
     public void view(){
         List<String> itemList = ReadItemListFromFile(FILENAME);
@@ -128,7 +147,6 @@ public class Items extends manage {
                     itemList.add(line);
                 }
             } catch (IOException e) {
-                e.printStackTrace();
             }
             return itemList;
         }
@@ -144,46 +162,46 @@ public class Items extends manage {
     }    
 
     @Override
-        public void delete(String itemNameToDelete) {
-            try (Scanner scanner = new Scanner(new File(FILENAME));
-                 FileWriter writer = new FileWriter(FILENAME + ".tmp");
-                 BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
+    public void delete(String itemCodeToDelete) {
+    try (Scanner scanner = new Scanner(new File(FILENAME));
+         FileWriter writer = new FileWriter(FILENAME + ".tmp");
+         BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
 
-                boolean itemDeleted = false;
-                
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    String[] itemInfo = line.split(",");
-                    String itemNameFromFile = itemInfo[0].trim();
+        boolean itemDeleted = false;
 
-                    if (!itemNameFromFile.equalsIgnoreCase(itemNameToDelete)) {
-                        // Write the item data to the temporary file
-                        bufferedWriter.write(line);
-                        bufferedWriter.newLine();
-                    } else {
-                        itemDeleted = true;
-                    }
-                }
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] itemInfo = line.split(",");
+            String itemCodeFromFile = itemInfo[4].trim(); // Assuming the product code is at index 4
 
-                if (itemDeleted) {
-                    System.out.println("\nItem deleted successfully.\n");
-                } else {
-                    System.out.println("\nItem not found.\n");
-                }
-            } catch (IOException e) {
-                System.out.println("\nAn error occurred while deleting the item.\n");
-            }
-
-            // After the deletion is done, you should rename the temporary file to replace the original file.
-            File originalFile = new File(FILENAME);
-            File temporaryFile = new File(FILENAME + ".tmp");
-
-            if (temporaryFile.renameTo(originalFile)) {
-                System.out.println("File renamed successfully.\n");
+            if (!itemCodeFromFile.equalsIgnoreCase(itemCodeToDelete)) {
+                // Write the item data to the temporary file
+                bufferedWriter.write(line);
+                bufferedWriter.newLine();
             } else {
-                System.out.println("Failed to rename the file.\n");
+                itemDeleted = true;
             }
         }
+
+        if (itemDeleted) {
+            System.out.println("\nItem deleted successfully.\n");
+        } else {
+            System.out.println("\nItem not found.\n");
+        }
+    } catch (IOException e) {
+        System.out.println("\nAn error occurred while deleting the item.\n");
+    }
+
+    // After the deletion is done, you should rename the temporary file to replace the original file.
+    File originalFile = new File(FILENAME);
+    File temporaryFile = new File(FILENAME + ".tmp");
+
+    if (temporaryFile.renameTo(originalFile)) {
+        System.out.println("File renamed successfully.\n");
+    } else {
+        System.out.println("Failed to rename the file.\n");
+    }
+}
 
 
     @Override
@@ -209,39 +227,40 @@ public class Items extends manage {
                 writer.newLine();
             }
         }
-    } catch (IOException e) {
-        System.out.println("\nAn error occurred while editing the item information.\n");
-        return;
-    }
-
-    if (!itemFound) {
-        System.out.println("\nThere's no such item to edit.\n");
-        return;
-    }
-    // After the deletion is done, you should rename the temporary file to replace the original file.
-    File originalFile = new File(FILENAME);
-    File temporaryFile = new File(FILENAME + ".tmp");
-
-    if (temporaryFile.renameTo(originalFile)) {
-        System.out.println("File renamed successfully.\n");
-    } else {
-        System.out.println("Failed to rename the file.\n");
-    }
-}
-  
-    public boolean check(String itemNameToEdit) {
-        try (Scanner scanner = new Scanner(new File(FILENAME))) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] itemInfo = line.split(",");
-                String itemNameFromFile = itemInfo[0].trim();
-                if (itemNameFromFile.equalsIgnoreCase(itemNameToEdit)) {
-                    return true; // Item found
-                }
-            }
         } catch (IOException e) {
-            System.out.println("\nAn error occurred while checking item information.\n");
+            System.out.println("\nAn error occurred while editing the item information.\n");
+            return;
         }
-        return false; // Item not found
+
+        if (!itemFound) {
+            System.out.println("\nThere's no such item to edit.\n");
+            return;
+        }
+        // After the deletion is done, you should rename the temporary file to replace the original file.
+        File originalFile = new File(FILENAME);
+        File temporaryFile = new File(FILENAME + ".tmp");
+
+        if (temporaryFile.renameTo(originalFile)) {
+            System.out.println("File renamed successfully.\n");
+        } else {
+            System.out.println("Failed to rename the file.\n");
+        }
+    }
+  
+    public boolean check(String itemCodeToEdit) {
+    try (Scanner scanner = new Scanner(new File(FILENAME))) {
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] itemInfo = line.split(",");
+            String itemCodeFromFile = itemInfo[4].trim(); // Assuming the product code is at index 4
+
+            if (itemCodeFromFile.equalsIgnoreCase(itemCodeToEdit)) {
+                return true; // Item found
+            }
+        }
+    } catch (IOException e) {
+        System.out.println("\nAn error occurred while checking item information.\n");
+    }
+    return false; // Item not found
     }
 }    

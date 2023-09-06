@@ -67,36 +67,42 @@ public final class Sales {
     private void itemEntry() throws IOException {
     boolean itemDisplayMenu = true;
     while (itemDisplayMenu) {
-        System.out.println("Item Entry Submenu...\n1. Add New Items.\n2. Delete Items.\n3. Edit Item Informations.\n0. Go back to Main Menu\n");
+        System.out.println("Item Entry Submenu...\n1. View Items.\n2. Add New Items.\n3. Delete Items.\n4. Edit Item Informations.\n0. Go back to Main Menu\n");
         System.out.print("Enter your choice: ");
         int submenuChoice = Integer.parseInt(scanner.nextLine());
         switch (submenuChoice) {
             case 1 -> {
+                System.out.println("View Items.");
+                Items items = new Items();
+                items.view();
+                // Ask the user to enter something before breaking
+                System.out.println("Press Enter to continue...");
+                scanner.nextLine(); // Wait for user to press Enter
+                break;
+            }
+            case 2 -> {
                 System.out.println("Add New Items.");
                 Items items = new Items();
                 items.add();
                 break;
             }
-
-            case 2 -> {
+            case 3 -> {
                 System.out.println("Delete item ...");
                 Items items = new Items();
                 items.view(); // Call the view method to display items
-                System.out.print("Enter the name of the item to delete (Enter to Cancel Process): ");
+                System.out.print("Enter the Code of the item to delete (Enter to Cancel Process): ");
                 String delete = scanner.nextLine();
                 items.delete(delete); // Pass the item name to delete
                 break;
             }
-
-
-            case 3 -> {
+            case 4 -> {
                 System.out.println("Edit Item Information...");
                 Items item = new Items();
                 item.view(); // Call the view method to display items
-                System.out.print("\nEnter the name of the item to edit: ");
-                String itemNameToEdit = scanner.nextLine();
+                System.out.print("\nEnter the Code of the item to edit: ");
+                String itemCodeToEdit = scanner.nextLine();
                 // Check if the item exists before asking for new information
-                if (item.check(itemNameToEdit)) {
+                if (item.check(itemCodeToEdit)) {
                     System.out.print("Enter new name: ");
                     String newName = scanner.nextLine();
                     System.out.print("Enter new category: ");
@@ -109,12 +115,13 @@ public final class Sales {
                     String newCode = scanner.nextLine();
                     System.out.print("Enter new description: ");
                     String newDescription = scanner.nextLine();
-                    item.edit(itemNameToEdit, newName, newCategory, newPrice, newAvailability, newCode, newDescription);
+                    item.edit(itemCodeToEdit, newName, newCategory, newPrice, newAvailability, newCode, newDescription);
                 } else {
                     System.out.println("\nThere's no such item to edit.\n");
                 }
                 break;
-            }         
+            }
+    
             case 0 -> {
                 // Exit the loop to go back to the main menu
                 itemDisplayMenu = false;
@@ -131,53 +138,36 @@ public final class Sales {
     private void supplierEntry() throws IOException {
         boolean supplierDisplayMenu = true;
         while (supplierDisplayMenu) {
-        System.out.println("Supplier Entry Submenu...\n1. Add\n2. Delete\n3. Edit\n0. Go back to Main Menu\n");
+        System.out.println("Supplier Entry Submenu...\n1. View Suppliers. \n2. Add Supplier.\n3. Delete Supplier Information.\n4. Edit Supplier Informations.\n0. Go back to Main Menu\n");
         System.out.print("Enter your choice: ");
         int submenuChoice = Integer.parseInt(scanner.nextLine());
         switch (submenuChoice) {
             
             case 1 -> {
-                System.out.println("Add New Supplier.");
-                System.out.print("Enter Supplier Company Name: ");
-                String supname = scanner.nextLine();
-                System.out.print("Enter Contact Person: ");
-                String conname = scanner.nextLine();
-                System.out.print("Enter Email: ");
-                String supemail = scanner.nextLine();
-                System.out.print("Enter Phone: ");
-                String supphone = scanner.nextLine();
-                System.out.print("Enter Address: ");
-                String supaddr = scanner.nextLine();
-                System.out.print("Enter Website: ");
-                String supweb = scanner.nextLine();
-                System.out.print("\nDo you want to save this Supplier Information? Please checks before you proceed. (Y/N): ");
-                String confirm = scanner.nextLine();
-                if (confirm.equalsIgnoreCase("Y")) {
-                    Suppliers supp = new Suppliers(supname, conname, supemail, supphone, supaddr, supweb);
-                    supp.saveSupplierToFile(supname, conname, supemail, supphone, supaddr, supweb);
-                } else {
-                    System.out.println("Item not saved.");
-                    }
-                break;
+                
             }
             
             case 2 -> {
+                
+            }
+            
+            case 3 -> {
                 System.out.println("Delete Supplier Information ...");
                 System.out.print("Enter the name of the Supplier to delete: ");
                 String supNameToDelete = scanner.nextLine();
                 Suppliers supp = new Suppliers();
-                supp.deleteSuppliersFromFile(supNameToDelete);
+                supp.delete(supNameToDelete);
                 break;
                 }
             
-            case 3 -> {
+            case 4 -> {
                 System.out.println("Edit Supplier Information...");
                 System.out.print("Enter the name of the Supplier to edit: ");
                 String supNameToEdit = scanner.nextLine();
-
+/*
                 // Check if the supplier exists before proceeding
                 Suppliers supp = new Suppliers(); // Create an instance of Suppliers
-                boolean supplierExists = supp.checkSupplierExists(supNameToEdit);
+                boolean supplierExists = supp.check(supNameToEdit);
 
                 if (supplierExists) {
                     System.out.print("Enter new Supplier name: ");
@@ -196,7 +186,7 @@ public final class Sales {
                     String confirm = scanner.nextLine();
 
                     if (confirm.equalsIgnoreCase("Y")) {
-                    supp.editSupplierFromFile(supNameToEdit, supname, conname, supemail, supphone, supaddr, supweb);
+                    supp.check(supNameToEdit, supname, conname, supemail, supphone, supaddr, supweb);
                 } else {
                     System.out.println("\nChanges not saved.\n");
                 }
@@ -204,6 +194,7 @@ public final class Sales {
                 System.out.println("\nSupplier not found. Please enter a valid supplier name.\n");
             }
             break;
+*/
             }
             
             case 0 -> {
