@@ -311,7 +311,7 @@ public class Suppliers extends manage{
     */
 
     @Override
-    public void edit(String edit, String name, String category, String price, String availability, String code, String descriptions) {
+    public void edit(String edit, String name, String category, String price, String availability, String descriptions) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

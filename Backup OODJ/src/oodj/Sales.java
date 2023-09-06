@@ -65,37 +65,79 @@ public final class Sales {
     }
 
     private void itemEntry() throws IOException {
-    boolean itemDisplayMenu = true;
-    while (itemDisplayMenu) {
-        System.out.println("Item Entry Submenu...\n1. View Items.\n2. Add New Items.\n3. Delete Items.\n4. Edit Item Informations.\n0. Go back to Main Menu\n");
+    while (true) {
+        System.out.println("\nItem Entry Submenu...\n1. View Items.\n2. Find Specific Items with Name.\n3. Add New Items.\n4. Delete Items.\n5. Edit Item Informations.\n0. Go back to Main Menu\n");
         System.out.print("Enter your choice: ");
-        int submenuChoice = Integer.parseInt(scanner.nextLine());
+
+        String submenuChoiceStr = scanner.nextLine();
+
+        // Validate input before parsing
+        if (!submenuChoiceStr.matches("\\d+")) {
+            System.out.println("Invalid input. Please enter a number.");
+            continue;
+        }
+
+        int submenuChoice = Integer.parseInt(submenuChoiceStr);
+
         switch (submenuChoice) {
             case 1 -> {
-                System.out.println("View Items.");
+                System.out.println("View All Items.");
                 Items items = new Items();
                 items.view();
                 // Ask the user to enter something before breaking
-                System.out.println("Press Enter to continue...");
+                System.out.println("Press Enter to continue...\n");
                 scanner.nextLine(); // Wait for user to press Enter
-                break;
             }
             case 2 -> {
-                System.out.println("Add New Items.");
+                System.out.println("Find Specific Item Information.");
                 Items items = new Items();
-                items.add();
-                break;
+                System.out.print("Enter a keyword to search for specific items: ");
+                String filter = scanner.nextLine();
+                boolean itemsFound = items.view(filter);
+                if (!itemsFound) {
+                    System.out.println("\nNo such items.");
+                }
             }
             case 3 -> {
-                System.out.println("Delete item ...");
+                System.out.println("\nAdd New Items.");
                 Items items = new Items();
-                items.view(); // Call the view method to display items
-                System.out.print("Enter the Code of the item to delete (Enter to Cancel Process): ");
-                String delete = scanner.nextLine();
-                items.delete(delete); // Pass the item name to delete
-                break;
+                items.add();
             }
             case 4 -> {
+                System.out.println("Delete item ...");
+                Items items = new Items();
+                items.view(); // Display the item list before deletion
+
+                System.out.print("Enter the Code of the item to delete (Enter to Cancel Process): ");
+                String filter = scanner.nextLine().trim();
+
+                if (!filter.isEmpty()) {
+                    // Check if the item exists
+                    if (items.check(filter)) {
+                        // Display item information for confirmation
+                        System.out.println("Item Information to Delete:");
+                        items.view(filter);
+
+                        // Ask for confirmation
+                        Scanner confirmScanner = new Scanner(System.in);
+                        System.out.print("Confirm deletion (yes/no): ");
+                        String confirm = confirmScanner.nextLine();
+                        if (confirm.equalsIgnoreCase("yes") || confirm.equalsIgnoreCase("y")) {
+                            items.delete(filter);
+                        } else {
+                            System.out.println("Deletion process canceled.\n");
+                        }
+                    } else {
+                        System.out.println("Item not found or deletion canceled.\n");
+                    }
+                } else {
+                    System.out.println("Deletion process canceled.\n");
+                }
+                break;
+            }
+
+
+            case 5 -> {
                 System.out.println("Edit Item Information...");
                 Items item = new Items();
                 item.view(); // Call the view method to display items
@@ -109,32 +151,26 @@ public final class Sales {
                     String newCategory = scanner.nextLine();
                     System.out.print("Enter new price: ");
                     String newPrice = scanner.nextLine();
-                    System.out.print("Enter new availability: ");
+                    System.out.print("Enter Available or NoStock: ");
                     String newAvailability = scanner.nextLine();
-                    System.out.print("Enter new code: ");
-                    String newCode = scanner.nextLine();
                     System.out.print("Enter new description: ");
                     String newDescription = scanner.nextLine();
-                    item.edit(itemCodeToEdit, newName, newCategory, newPrice, newAvailability, newCode, newDescription);
+                    item.edit(itemCodeToEdit, newName, newCategory, newPrice, newAvailability, newDescription);
                 } else {
                     System.out.println("\nThere's no such item to edit.\n");
                 }
-                break;
             }
-    
             case 0 -> {
                 // Exit the loop to go back to the main menu
-                itemDisplayMenu = false;
-                break;
-            }    
+                return;
+            }
             default -> {
                 System.out.println("Invalid number. Please enter a valid option.");
-                break;
             }
         }
     }
-    }
-    
+}
+        
     private void supplierEntry() throws IOException {
         boolean supplierDisplayMenu = true;
         while (supplierDisplayMenu) {

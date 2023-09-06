@@ -1,3 +1,2 @@
-MacBookPro,Laptop,8500,Available,000001,MacBookPro2023-14inches
-iPadPro,Tablet,6000,Available,000002,iPadPro2023-11inches
-a,a,a,a,a,a
+000001,MacBookPro,Laptop,8500,Available,MacBookPro2023-14inches
+000002,iPadPro,Tablet,6000,Available,iPadPro2023-11inches

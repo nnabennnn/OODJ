@@ -18,8 +18,7 @@ public abstract class manage {
             String name, 
             String category, 
             String price, 
-            String availability, 
-            String code, 
+            String availability,
             String descriptions
     );
     public abstract void view();
