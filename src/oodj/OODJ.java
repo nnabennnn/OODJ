@@ -34,7 +34,8 @@ public class OODJ {
            
        else if("pm".equals((username))){
            System.out.println("Welcome!");
-           PM pm = new PM(); 
+           PurchaseManager purchaseManager = new PurchaseManagerImpl();
+           purchaseManager.performPurchaseManagerActions();
        
            
        }else{
