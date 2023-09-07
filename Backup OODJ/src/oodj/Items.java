@@ -18,9 +18,13 @@ import java.util.*;
 public class Items extends manage {
     
     private static final String FILENAME = "/Users/htankhaishan/Desktop/Backup OODJ/items.txt";
+    private final UserInputUtility userInputUtility; // Composition
     
-    private static int nextItemCode = 1; // for Item code
-    
+    public Items() {
+        // ...
+        this.userInputUtility = new UserInputUtility(new Scanner(System.in)); // Initialize the UserInputUtility
+    }
+
     private String Iname;
     private String Icate;
     private String Iprice;
@@ -81,61 +85,78 @@ public class Items extends manage {
         return Iname + Icate + Iprice + Iavi + Idec + Icode;
     }
     
-    
-    @Override
-    public void add() {
-        try (FileWriter writer = new FileWriter(FILENAME, true);
-             BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
-            
-            // Prompt the user for item information
-            Scanner scanner = new Scanner(System.in);
-            
-            setIcode(String.format("%06d", nextItemCode++)); // Generate item code
-            
-            System.out.print("Enter item name: ");
-            setIname(scanner.nextLine());
-            
-            System.out.print("Enter item category: ");
-            setIcate(scanner.nextLine());
-            
-            System.out.print("Enter item price in RM: ");
-            setIprice(scanner.nextLine());
-            
-            System.out.print("Enter item Availability (Available or NoStock): ");
-            setIavi(scanner.nextLine());
-
-            System.out.print("Enter item Description: ");
-            setIdec(scanner.nextLine());
-
-            // Display the entered data for confirmation
-            System.out.println("\nPlease review the entered data:");
-            System.out.println("Item Information:");
-            System.out.println("Product Code: " + getIcode());
-            System.out.println("Name: " + getIname());
-            System.out.println("Category: " + getIcate());
-            System.out.println("Price: " + getIprice() + " RM");
-            System.out.println("Availability: " + getIavi());
-            System.out.println("Description: " + getIdec());
-
-            System.out.print("Do you want to save this item? (yes/no): ");
-            String confirm = scanner.nextLine();
-
-            if (confirm.equals("yes") || confirm.equals("y")) {
-                // Create a comma-separated string with the item data
-                String itemData = getIcode() + "," + getIname() + "," + getIcate() + "," + getIprice() + "," + getIavi() + "," + getIdec();
-                // Write the item data to the file
-                bufferedWriter.write(itemData);
-                bufferedWriter.newLine();
-                System.out.println("\nItem information saved successfully.\n");
-            } else {
-                System.out.println("\nItem not saved.\n");
-            }
-
-        } catch (IOException e) {
-            System.out.println("\nAn error occurred while saving the item information.\n");
+    // Generate a random 8-digit item code
+    private String generateRandomItemCode() {
+        long nanoTime = System.nanoTime();
+        String nanoTimeString = String.valueOf(nanoTime);
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        Random random = new Random();
+        StringBuilder codeBuilder = new StringBuilder(nanoTimeString);
+        int randomCodeLength = 7;
+        for (int i = 0; i < randomCodeLength; i++) {
+            int randomIndex = random.nextInt(characters.length());
+            char randomChar = characters.charAt(randomIndex);
+            codeBuilder.append(randomChar);
         }
+        return codeBuilder.toString().substring(10, 18);
+    }
+    
+    private String getUserInput(String prompt) {
+        return userInputUtility.getUserInput(prompt);
     }
 
+    @Override
+    public void add() {
+    try (FileWriter writer = new FileWriter(FILENAME, true);
+         BufferedWriter bufferedWriter = new BufferedWriter(writer)) {   
+        // Prompt the user for item information
+        Scanner scanner = new Scanner(System.in);
+        // Generate a random 8-digit item code
+        String itemCode = generateRandomItemCode();
+
+        System.out.print("Enter item name: ");
+        setIname(scanner.nextLine());
+        
+        System.out.print("Enter item category: ");
+        setIcate(scanner.nextLine());
+        
+        System.out.print("Enter item price in RM: ");
+        setIprice(scanner.nextLine());
+        
+        System.out.print("Enter item Availability (Available or NoStock): ");
+        setIavi(scanner.nextLine());
+
+        System.out.print("Enter item Description: ");
+        setIdec(scanner.nextLine());
+
+        // Display the entered data for confirmation
+        System.out.println("\nPlease review the entered data:");
+        System.out.println("Item Information:");
+        System.out.println("Product Code: " + itemCode);
+        System.out.println("Name: " + getIname());
+        System.out.println("Category: " + getIcate());
+        System.out.println("Price: " + getIprice() + " RM");
+        System.out.println("Availability: " + getIavi());
+        System.out.println("Description: " + getIdec());
+        
+        System.out.print("Do you want to save this item? (yes/no): ");
+        String confirm = scanner.nextLine();
+
+        if (confirm.equals("yes") || confirm.equals("y")) {
+            // Create a comma-separated string with the item data
+            String itemData = itemCode + "," + getIname() + "," + getIcate() + "," + getIprice() + "," + getIavi() + "," + getIdec();
+            // Write the item data to the file
+            bufferedWriter.write(itemData);
+            bufferedWriter.newLine();
+            System.out.println("\nItem information saved successfully.\n");
+        } else {
+            System.out.println("\nItem not saved.\n");
+        }
+
+    } catch (IOException e) {
+        System.out.println("\nAn error occurred while saving the item information.\n");
+    }
+    }
 
     @Override
     public void view(){
@@ -154,7 +175,7 @@ public class Items extends manage {
             }
         }
 
-        String separator = " ----------------------------------------------------------------------------------------";
+        String separator = " -------------------------------------------------------------------------------------------------------------------------";
         String format = "| %-"+(maxColumnWidths[0]+1)+"s | %-"+(maxColumnWidths[1]+2)+"s | %-"+(maxColumnWidths[2]+2)+"s | %-"+(maxColumnWidths[3]+1)+"s | %-"+(maxColumnWidths[4]+2)+"s | %-"+(maxColumnWidths[5]+5)+"s |";
 
         System.out.println("Item List:");
@@ -211,7 +232,7 @@ public class Items extends manage {
             }
         }
 
-        String separator = " ----------------------------------------------------------------------------------------";
+        String separator = " -------------------------------------------------------------------------------------------------------------------------";
         String format = "| %-"+(maxColumnWidths[0]+1)+"s | %-"+(maxColumnWidths[1]+2)+"s | %-"+(maxColumnWidths[2]+2)+"s | %-"+(maxColumnWidths[3]+1)+"s | %-"+(maxColumnWidths[4]+2)+"s | %-"+(maxColumnWidths[5]+5)+"s |";
 
         System.out.println("Item List:");
@@ -244,35 +265,20 @@ public class Items extends manage {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] itemInfo = line.split(",");
-            String itemCodeFromFile = itemInfo[0].trim(); // Assuming the product code is at index 0
+            String itemCodeFromFile = itemInfo[0].trim(); // Assuming the product code is at index 4
 
-            if (itemCodeFromFile.equalsIgnoreCase(itemCodeToDelete)) {
-                // Display the item's information for confirmation
-                System.out.println("Item Information to Delete:");
-                System.out.println("Product Code: " + itemInfo[0]);
-                System.out.println("Name: " + itemInfo[1]);
-                System.out.println("Category: " + itemInfo[2]);
-                System.out.println("Price: " + itemInfo[3] + " RM");
-                System.out.println("Availability: " + itemInfo[4]);
-                System.out.println("Description: " + itemInfo[5]);
-                System.out.println("Confirm deletion (yes/no): ");
-
-                String confirm = scanner.nextLine();
-
-                if (confirm.equalsIgnoreCase("yes") || confirm.equalsIgnoreCase("y")) {
-                    // Item found and confirmed for deletion
-                    itemDeleted = true;
-                    continue; // Skip writing this item to the new file (deleting it)
-                }
+            if (!itemCodeFromFile.equalsIgnoreCase(itemCodeToDelete)) {
+                // Write the item data to the temporary file
+                bufferedWriter.write(line);
+                bufferedWriter.newLine();
+            } else {
+                itemDeleted = true;
             }
-            // Write the item data to the temporary file
-            bufferedWriter.write(line);
-            bufferedWriter.newLine();
         }
         if (itemDeleted) {
             System.out.println("\nItem deleted successfully.\n");
         } else {
-            System.out.println("\nItem not found or deletion canceled.\n");
+            System.out.println("\nItem not found.\n");
         }
         } catch (IOException e) {
             System.out.println("\nAn error occurred while deleting the item.\n");
@@ -295,7 +301,7 @@ public class Items extends manage {
 
     // First, check if the item exists
     try (Scanner scanner = new Scanner(new File(FILENAME));
-         BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".tmp"))) {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".tmp"))) {
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();

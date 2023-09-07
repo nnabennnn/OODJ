@@ -18,12 +18,22 @@ public final class Sales {
     private boolean running;
     private final Scanner scanner;
     private boolean displayMenu;
+    private final UserInputUtility userInputUtility; // Composition
 
     public Sales() throws IOException {
         this.running = true;
         this.scanner = new Scanner(System.in);
         this.displayMenu = true;
+        this.userInputUtility = new UserInputUtility(scanner); // Initialize the UserInputUtility
         start();
+    }
+
+    private boolean getUserConfirmation(Scanner scanner1) {
+        return userInputUtility.getUserConfirmation();
+    }
+
+    private String getUserInput(String prompt) {
+        return userInputUtility.getUserInput(prompt);
     }
 
     private void displayMenu() {
@@ -109,57 +119,45 @@ public final class Sales {
                 items.view(); // Display the item list before deletion
 
                 System.out.print("Enter the Code of the item to delete (Enter to Cancel Process): ");
-                String filter = scanner.nextLine().trim();
+                String itemCodeToDelete = scanner.nextLine().trim();
 
-                if (!filter.isEmpty()) {
-                    // Check if the item exists
-                    if (items.check(filter)) {
-                        // Display item information for confirmation
-                        System.out.println("Item Information to Delete:");
-                        items.view(filter);
-
-                        // Ask for confirmation
-                        Scanner confirmScanner = new Scanner(System.in);
-                        System.out.print("Confirm deletion (yes/no): ");
-                        String confirm = confirmScanner.nextLine();
-                        if (confirm.equalsIgnoreCase("yes") || confirm.equalsIgnoreCase("y")) {
-                            items.delete(filter);
-                        } else {
-                            System.out.println("Deletion process canceled.\n");
-                        }
-                    } else {
-                        System.out.println("Item not found or deletion canceled.\n");
-                    }
+                if (!itemCodeToDelete.isEmpty()) {
+                    items.delete(itemCodeToDelete);
                 } else {
                     System.out.println("Deletion process canceled.\n");
                 }
                 break;
             }
-
-
             case 5 -> {
                 System.out.println("Edit Item Information...");
                 Items item = new Items();
-                item.view(); // Call the view method to display items
+                item.view();
                 System.out.print("\nEnter the Code of the item to edit: ");
                 String itemCodeToEdit = scanner.nextLine();
+
                 // Check if the item exists before asking for new information
                 if (item.check(itemCodeToEdit)) {
-                    System.out.print("Enter new name: ");
-                    String newName = scanner.nextLine();
-                    System.out.print("Enter new category: ");
-                    String newCategory = scanner.nextLine();
-                    System.out.print("Enter new price: ");
-                    String newPrice = scanner.nextLine();
-                    System.out.print("Enter Available or NoStock: ");
-                    String newAvailability = scanner.nextLine();
-                    System.out.print("Enter new description: ");
-                    String newDescription = scanner.nextLine();
-                    item.edit(itemCodeToEdit, newName, newCategory, newPrice, newAvailability, newDescription);
-                } else {
+                    // Get user input for editing and check confirmation
+                        boolean confirmed = getUserConfirmation(scanner);
+
+                        if (confirmed) {
+                            String newName = getUserInput("Enter new name: ");
+                            String newCategory = getUserInput("Enter new category: ");
+                            String newPrice = getUserInput("Enter new price: ");
+                            String newAvailability = getUserInput("Enter Available or NoStock: ");
+                            String newDescription = getUserInput("Enter new description: ");
+
+                            // Proceed with the edit
+                            item.edit(itemCodeToEdit, newName, newCategory, newPrice, newAvailability, newDescription);
+                        } else {
+                            System.out.println("\nEdit process canceled.\n");
+                        }
+                    } else {
                     System.out.println("\nThere's no such item to edit.\n");
                 }
             }
+
+
             case 0 -> {
                 // Exit the loop to go back to the main menu
                 return;
